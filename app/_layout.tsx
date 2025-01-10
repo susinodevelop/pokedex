@@ -11,9 +11,7 @@ export default function Layout() {
       <ThemeContextProvider>
         <Stack
           screenOptions={{
-            headerStyle: { backgroundColor: "#f8f9fa" },
-            headerTintColor: "#333",
-            headerTitleStyle: { fontWeight: "bold" },
+            headerShown: false,
           }}
         />
       </ThemeContextProvider>

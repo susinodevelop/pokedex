@@ -21,7 +21,7 @@ const { LightTheme, DarkTheme } = adaptNavigationTheme({
 
 const CombinedLightTheme = merge(MD3LightTheme, LightTheme);
 const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
-const ThemeContext = createContext({
+export const ThemeContext = createContext({
   isDark: false,
   theme: LightTheme,
 });
