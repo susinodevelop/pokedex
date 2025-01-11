@@ -1,31 +1,44 @@
 import React from "react";
 import { Pokemon } from "@/domain/entities/pokemon";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, Pressable, StyleSheet, View } from "react-native";
 import { Card, Text } from "react-native-paper";
 import { FadeInImage } from "../ui/FadeInImage";
+import { useRouter } from "expo-router";
 
 interface PokemonCardProps {
   pokemon: Pokemon;
 }
 
 const PokemonCard = ({ pokemon }: PokemonCardProps) => {
+  const router = useRouter();
+
   return (
-    <Card style={[styles.cardContainer, { backgroundColor: pokemon.color }]}>
-      <Text style={styles.name} variant="bodyLarge" lineBreakMode="middle">
-        {pokemon.name}
-        {"\n#" + pokemon.id}
-      </Text>
+    <Pressable
+      style={{ flex: 1 }}
+      onPress={() =>
+        router.push({
+          pathname: "/pokemon/[id]", // Ruta dinámica
+          params: { id: pokemon.id }, // Parámetro dinámico
+        })
+      }
+    >
+      <Card style={[styles.cardContainer, { backgroundColor: pokemon.color }]}>
+        <Text style={styles.name} variant="bodyLarge" lineBreakMode="middle">
+          {pokemon.name}
+          {"\n#" + pokemon.id}
+        </Text>
 
-      <View style={styles.pokeballContainer}>
-        <Image
-          source={require("@/assets/images/pokeball/pokeball-light.png")}
-          style={styles.pokeball}
-        />
-      </View>
+        <View style={styles.pokeballContainer}>
+          <Image
+            source={require("@/assets/images/pokeball/pokeball-light.png")}
+            style={styles.pokeball}
+          />
+        </View>
 
-      <FadeInImage uri={pokemon.avatar} style={styles.pokemonImage} />
-      <Text style={[styles.name, { marginTop: 35 }]}>{pokemon.types[0]}</Text>
-    </Card>
+        <FadeInImage uri={pokemon.avatar} style={styles.pokemonImage} />
+        <Text style={[styles.name, { marginTop: 35 }]}>{pokemon.types[0]}</Text>
+      </Card>
+    </Pressable>
   );
 };
 
