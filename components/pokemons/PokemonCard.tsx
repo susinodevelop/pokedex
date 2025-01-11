@@ -1,5 +1,5 @@
-import { Pokemon } from "@/domain/entities/pokemon";
 import React from "react";
+import { Pokemon } from "@/domain/entities/pokemon";
 import { Image, StyleSheet, View } from "react-native";
 import { Card, Text } from "react-native-paper";
 import { FadeInImage } from "../ui/FadeInImage";
