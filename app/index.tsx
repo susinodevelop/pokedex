@@ -1,7 +1,6 @@
 import React from "react";
-import { useRouter } from "expo-router";
 import { FlatList, StyleSheet, View } from "react-native";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import getPokemons from "@/actions/get-pokemons";
 import PokeballBg from "@/components/ui/PokeballBg";
 import { Text } from "react-native-paper";
@@ -11,14 +10,20 @@ import PokemonCard from "@/components/pokemons/PokemonCard";
 
 const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
-  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { isLoading, data, fetchNextPage } = useInfiniteQuery({
     queryKey: ["pokemons", "pokemons-infinite"],
     initialPageParam: 0,
-    queryFn: (params) => getPokemons(params.pageParam),
+    queryFn: async (params) => {
+      const pokemons = await getPokemons(params.pageParam);
+
+      pokemons.forEach((pokemon) => {
+        queryClient.setQueryData(["pokemon", pokemon.id], pokemon);
+      });
+      return pokemons;
+    },
     getNextPageParam: (lastPage, allPages) => allPages.length,
-    staleTime: 1000 * 60 * 60, // 1 hora
   });
 
   return (
