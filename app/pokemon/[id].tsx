@@ -9,6 +9,7 @@ import React, { useContext } from "react";
 import { FlatList, Image, ScrollView, StyleSheet, View } from "react-native";
 import { Chip, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 type PokemonScreenProps = {
   id: string;
@@ -67,7 +68,7 @@ const PokemonScreen = () => {
           <Chip
             key={type}
             mode="outlined"
-            selectedColor="white"
+            selectedColor={"black"}
             style={{ marginLeft: 10 }}
           >
             {type}
@@ -101,8 +102,11 @@ const PokemonScreen = () => {
         horizontal
         keyExtractor={(item) => item}
         showsHorizontalScrollIndicator={false}
+        style={{ margin: 20 }}
         renderItem={({ item }) => (
-          <Chip selectedColor="white">{Formatter.capitalize(item)}</Chip>
+          <Chip selectedColor="black" style={{ marginInline: 20 }}>
+            {Formatter.capitalize(item)}
+          </Chip>
         )}
       />
 
@@ -114,9 +118,10 @@ const PokemonScreen = () => {
         keyExtractor={(item) => item.name}
         horizontal
         showsHorizontalScrollIndicator={false}
+        style={{ marginBottom: 20, marginTop: 20 }}
         renderItem={({ item }) => (
           <View style={styles.statsContainer}>
-            <Text style={{ flex: 1, color: "white" }}>
+            <Text style={{ flex: 1, color: "black", fontWeight: "bold" }}>
               {Formatter.capitalize(item.name)}
             </Text>
             <Text style={{ color: "white" }}>{item.value}</Text>
@@ -131,9 +136,10 @@ const PokemonScreen = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         centerContent
+        style={{ marginBottom: 20, marginTop: 20 }}
         renderItem={({ item }) => (
           <View style={styles.statsContainer}>
-            <Text style={{ flex: 1, color: "white" }}>
+            <Text style={{ flex: 1, color: "black", fontWeight: "bold" }}>
               {Formatter.capitalize(item.name)}
             </Text>
             <Text style={{ color: "white" }}>lvl {item.level}</Text>
@@ -149,8 +155,11 @@ const PokemonScreen = () => {
         keyExtractor={(item) => item}
         showsHorizontalScrollIndicator={false}
         centerContent
+        style={{ margin: 20 }}
         renderItem={({ item }) => (
-          <Chip selectedColor="white">{Formatter.capitalize(item)}</Chip>
+          <Chip selectedColor="black" style={{ marginInline: 20 }}>
+            {Formatter.capitalize(item)}
+          </Chip>
         )}
       />
 
@@ -192,7 +201,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   subTitle: {
-    color: "white",
+    color: "black",
     fontSize: 18,
     fontWeight: "bold",
     marginHorizontal: 20,
@@ -202,6 +211,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginHorizontal: 20,
     alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.3)",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
   },
 });
 
